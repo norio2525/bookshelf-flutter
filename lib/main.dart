@@ -9,9 +9,9 @@
 // ![A scaffold with a bottom navigation bar containing three bottom navigation
 // bar items. The first one is selected.](https://flutter.github.io/assets-for-api-docs/assets/material/bottom_navigation_bar.png)
 
-import 'package:bookshelf/view/search.dart';
-import 'package:bookshelf/view/settings.dart';
-import 'package:bookshelf/view/shelf.dart';
+import 'package:bookshelf/widgets//search.dart';
+import 'package:bookshelf/widgets/settings.dart';
+import 'package:bookshelf/widgets/shelf.dart';
 import 'package:flutter/material.dart';
 
 void main() => runApp(MyApp());
