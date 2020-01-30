@@ -1,13 +1,11 @@
 import 'dart:async';
 import 'dart:convert';
-import 'dart:io';
 
-import 'package:bookshelf/model/rakuten_book.dart';
-import 'package:flutter/cupertino.dart';
+import 'package:bookshelf/model/rakuten_book_response.dart';
+import 'package:http/http.dart' as http;
 
 class ApiClient {
   static final _client = ApiClient._internal();
-  final _http = HttpClient();
 
   ApiClient._internal();
 
@@ -19,24 +17,17 @@ class ApiClient {
 
   factory ApiClient() => _client;
 
-  Future<dynamic> _getJson(Uri uri) async {
-    var response = await (await _http.getUrl(uri)).close();
-    var transformedResponse = await response.transform(utf8.decoder).join();
-    return json.decode(transformedResponse);
-  }
-
-  Future<List<RakutenBook>> fetchRakutenBooks(
-      {int page: 1, String author: "伊坂"}) async {
+  Future<RakutenBookResponse> fetchBooks() async {
     var url = Uri.https(baseUrl, 'services/api/BooksBook/Search/20170404', {
       'applicationId': rakuten_app_id,
-      'author': author,
+      'author': '伊坂',
       'outOfStockFlag': '1'
     });
-
-    debugPrint('url = $url');
-
-    return _getJson(url).then((json) => json['Items']).then((data) => data
-        .map<RakutenBook>((item) => RakutenBook(item))
-        .toList());
+    final response = await http.get(url);
+    if (response.statusCode == 200) {
+      return RakutenBookResponse.fromJson(json.decode(response.body));
+    } else {
+      throw Exception('Failed to load book');
+    }
   }
 }

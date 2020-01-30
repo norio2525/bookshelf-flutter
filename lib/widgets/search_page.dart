@@ -1,5 +1,5 @@
 import 'package:bookshelf/http/api_client.dart';
-import 'package:bookshelf/model/rakuten_book.dart';
+import 'package:bookshelf/model/rakuten_book_response.dart';
 import 'package:bookshelf/widgets/search_item.dart';
 import 'package:flutter/material.dart';
 
@@ -10,14 +10,14 @@ class SearchScreen extends StatefulWidget {
 
 class _SearchScreenState extends State<SearchScreen> {
   ApiClient _apiClient = ApiClient();
-  Future<List<RakutenBook>> _resultList;
+  Future<RakutenBookResponse> _resultList;
   LoadingState _currentState = LoadingState.WAITING;
 
   @override
   void initState() {
     super.initState();
     setState(() {
-      _resultList = _apiClient.fetchRakutenBooks();
+      _resultList = _apiClient.fetchBooks();
       _currentState = LoadingState.DONE;
     });
   }
@@ -45,16 +45,21 @@ class _SearchScreenState extends State<SearchScreen> {
       case LoadingState.DONE:
         debugPrint('DONE');
         return Center(
-            child: FutureBuilder<List<RakutenBook>>(
+            child: FutureBuilder<RakutenBookResponse>(
           future: _resultList,
           builder: (context, snapshot) {
-            debugPrint('snapshotLength = ${snapshot.data.length}');
+            debugPrint('snapshotLength = ${snapshot.data.items.length}');
             debugPrint('snapshotData = ${snapshot.data}');
             if (snapshot.hasData) {
-              return ListView.builder(
-                  itemCount: snapshot.data.length,
-                  itemBuilder: (BuildContext context, int index) =>
-                      SearchItemCard(snapshot.data[index]));
+//              return ListView.builder(
+//                  itemCount: snapshot.data.count,
+//                  itemBuilder: (BuildContext context, int index) =>
+//                      SearchItemCard(snapshot.data.items[index]));
+              RakutenBookResponse response = snapshot.data;
+              response.items.forEach((book) => {
+                    debugPrint('title=${book.title}')
+                  });
+              return Container();
             } else {
               return Text("${snapshot.error}");
             }

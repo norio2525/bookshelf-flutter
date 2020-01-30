@@ -1,12 +1,14 @@
-import 'package:bookshelf/model/rakuten_book.dart';
+import 'package:bookshelf/model/rakuten_book_response.dart';
 import 'package:flutter/material.dart';
 
 class SearchItemCard extends StatelessWidget {
-  final RakutenBook item;
+  final Book item;
 
-  SearchItemCard(this.item) {
-    debugPrint('item=$item.title');
-  }
+  SearchItemCard(this.item);
+
+//  {
+//    debugPrint('item=$item.title');
+//  }
 
   @override
   Widget build(BuildContext context) {
