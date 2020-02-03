@@ -21,7 +21,8 @@ class ApiClient {
     var url = Uri.https(baseUrl, 'services/api/BooksBook/Search/20170404', {
       'applicationId': rakuten_app_id,
       'author': '伊坂',
-      'outOfStockFlag': '1'
+      'outOfStockFlag': '1',
+      'formatVersion': '2'
     });
     final response = await http.get(url);
     if (response.statusCode == 200) {

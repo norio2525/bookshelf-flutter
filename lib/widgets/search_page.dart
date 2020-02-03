@@ -1,6 +1,5 @@
 import 'package:bookshelf/http/api_client.dart';
 import 'package:bookshelf/model/rakuten_book_response.dart';
-import 'package:bookshelf/widgets/search_item.dart';
 import 'package:flutter/material.dart';
 
 class SearchScreen extends StatefulWidget {
@@ -35,7 +34,7 @@ class _SearchScreenState extends State<SearchScreen> {
   Widget _buildContentSection() {
     switch (_currentState) {
       case LoadingState.WAITING:
-        return Center(child: Text("Search for movies, shows and actors"));
+        return Center(child: Text("Waiting"));
       case LoadingState.ERROR:
         return Center(child: Text("An error occured"));
       case LoadingState.LOADING:
@@ -48,18 +47,23 @@ class _SearchScreenState extends State<SearchScreen> {
             child: FutureBuilder<RakutenBookResponse>(
           future: _resultList,
           builder: (context, snapshot) {
-            debugPrint('snapshotLength = ${snapshot.data.items.length}');
-            debugPrint('snapshotData = ${snapshot.data}');
             if (snapshot.hasData) {
 //              return ListView.builder(
 //                  itemCount: snapshot.data.count,
 //                  itemBuilder: (BuildContext context, int index) =>
 //                      SearchItemCard(snapshot.data.items[index]));
               RakutenBookResponse response = snapshot.data;
-              response.items.forEach((book) => {
-                    debugPrint('title=${book.title}')
-                  });
-              return Container();
+              List<Book> list = response.items;
+              return ListView(
+                children: list
+                    .map(
+                      (Book book) => ListTile(
+                      title: Text(book.title),
+                      subtitle: Text(book.author),
+                      onTap: (null)),
+                )
+                    .toList(),
+              );
             } else {
               return Text("${snapshot.error}");
             }
