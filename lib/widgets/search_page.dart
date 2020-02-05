@@ -1,5 +1,6 @@
 import 'package:bookshelf/http/api_client.dart';
 import 'package:bookshelf/model/rakuten_book_response.dart';
+import 'package:bookshelf/widgets/book_detail.dart';
 import 'package:flutter/material.dart';
 
 class SearchScreen extends StatefulWidget {
@@ -57,10 +58,15 @@ class _SearchScreenState extends State<SearchScreen> {
               return ListView(
                 children: list
                     .map(
-                      (Book book) => ListTile(
-                      title: Text(book.title),
-                      subtitle: Text(book.author),
-                      onTap: (null)),
+                      (Book book) =>
+                      ListTile(
+                          title: Text(book.title),
+                          subtitle: Text(book.author),
+                          onTap: () {
+                            Navigator.push(context,
+                                MaterialPageRoute(
+                                    builder: (context) => BookDetailScreen(book)));
+                          }),
                 )
                     .toList(),
               );
