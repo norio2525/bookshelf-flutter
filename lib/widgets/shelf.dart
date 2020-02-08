@@ -1,4 +1,3 @@
-import 'package:bookshelf/widgets/search_page.dart';
 import 'package:flutter/material.dart';
 
 class ShelfPage extends StatelessWidget {
@@ -11,13 +10,6 @@ class ShelfPage extends StatelessWidget {
         crossAxisAlignment: CrossAxisAlignment.center,
         children: [
           Text('本棚', style: Theme.of(context).textTheme.headline),
-          MaterialButton(
-            child: Text('お試し結果'),
-            onPressed: () {
-              Navigator.push(context,
-                  MaterialPageRoute(builder: (context) => SearchScreen()));
-            },
-          )
         ],
       )),
     );

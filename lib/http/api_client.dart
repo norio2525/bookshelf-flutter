@@ -17,13 +17,22 @@ class ApiClient {
 
   factory ApiClient() => _client;
 
-  Future<RakutenBookResponse> fetchBooks() async {
-    var url = Uri.https(baseUrl, 'services/api/BooksBook/Search/20170404', {
+  Future<RakutenBookResponse> fetchBooks(String title, String author) async {
+    Map<String, String> params = {
       'applicationId': rakuten_app_id,
-      'author': '伊坂',
       'outOfStockFlag': '1',
       'formatVersion': '2'
-    });
+    };
+
+    if (title.isNotEmpty) {
+      params['title'] = title;
+    }
+    if (author.isNotEmpty) {
+      params['author'] = author;
+    }
+
+    var url =
+        Uri.https(baseUrl, 'services/api/BooksBook/Search/20170404', params);
     final response = await http.get(url);
     if (response.statusCode == 200) {
       return RakutenBookResponse.fromJson(json.decode(response.body));

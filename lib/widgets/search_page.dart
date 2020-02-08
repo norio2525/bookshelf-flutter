@@ -4,6 +4,11 @@ import 'package:bookshelf/widgets/book_detail.dart';
 import 'package:flutter/material.dart';
 
 class SearchScreen extends StatefulWidget {
+  final String title;
+  final String author;
+
+  SearchScreen({Key key, this.title, this.author}) : super(key: key);
+
   @override
   _SearchScreenState createState() => _SearchScreenState();
 }
@@ -17,7 +22,7 @@ class _SearchScreenState extends State<SearchScreen> {
   void initState() {
     super.initState();
     setState(() {
-      _resultList = _apiClient.fetchBooks();
+      _resultList = _apiClient.fetchBooks(widget.title, widget.author);
       _currentState = LoadingState.DONE;
     });
   }
@@ -58,16 +63,17 @@ class _SearchScreenState extends State<SearchScreen> {
               return ListView(
                 children: list
                     .map(
-                      (Book book) =>
-                      ListTile(
+                      (Book book) => ListTile(
                           title: Text(book.title),
                           subtitle: Text(book.author),
                           onTap: () {
-                            Navigator.push(context,
+                            Navigator.push(
+                                context,
                                 MaterialPageRoute(
-                                    builder: (context) => BookDetailScreen(book)));
+                                    builder: (context) =>
+                                        BookDetailScreen(book)));
                           }),
-                )
+                    )
                     .toList(),
               );
             } else {
