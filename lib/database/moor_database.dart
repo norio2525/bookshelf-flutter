@@ -10,7 +10,9 @@ part 'moor_database.g.dart';
 class Books extends Table {
   IntColumn get id => integer().autoIncrement()();
   TextColumn get title => text()();
+  TextColumn get titleKana => text()();
   TextColumn get author => text()();
+  TextColumn get authorKana => text()();
   TextColumn get publisherName => text()();
   TextColumn get size => text()();
   TextColumn get isbn => text()();
