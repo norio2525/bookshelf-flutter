@@ -1,14 +1,14 @@
 
 class RakutenBookResponse {
   final int count;
-  final List<Book> items;
+  final List<RakutenBook> items;
 
   RakutenBookResponse({this.count, this.items});
 
   factory RakutenBookResponse.fromJson(Map<String, dynamic> json) {
     var list = json['Items'] as List;
 
-    List<Book> bookList = list.map((i) => Book.fromJson(i)).toList();
+    List<RakutenBook> bookList = list.map((i) => RakutenBook.fromJson(i)).toList();
 
     return RakutenBookResponse(
       count: json['count'],
@@ -17,16 +17,16 @@ class RakutenBookResponse {
   }
 }
 
-class Book {
+class RakutenBook {
   /// タイトル
   final String title;
 
   /// 著者名
   final String author;
 
-  Book({this.title, this.author});
+  RakutenBook({this.title, this.author});
 
-  factory Book.fromJson(Map<String, dynamic> json) {
-    return Book(title: json['title'], author: json['author']);
+  factory RakutenBook.fromJson(Map<String, dynamic> json) {
+    return RakutenBook(title: json['title'], author: json['author']);
   }
 }

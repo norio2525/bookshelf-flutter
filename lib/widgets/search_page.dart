@@ -59,11 +59,11 @@ class _SearchScreenState extends State<SearchScreen> {
 //                  itemBuilder: (BuildContext context, int index) =>
 //                      SearchItemCard(snapshot.data.items[index]));
               RakutenBookResponse response = snapshot.data;
-              List<Book> list = response.items;
+              List<RakutenBook> list = response.items;
               return ListView(
                 children: list
                     .map(
-                      (Book book) => ListTile(
+                      (RakutenBook book) => ListTile(
                           title: Text(book.title),
                           subtitle: Text(book.author),
                           onTap: () {

@@ -52,4 +52,9 @@ class MyDatabase extends _$MyDatabase {
 
   @override
   int get schemaVersion => 1;
+
+  /// 生成されたidを返す
+  Future<int> addBook(BooksCompanion entry) {
+    return into(books).insert(entry);
+  }
 }

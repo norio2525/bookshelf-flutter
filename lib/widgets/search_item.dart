@@ -2,7 +2,7 @@ import 'package:bookshelf/model/rakuten_book_response.dart';
 import 'package:flutter/material.dart';
 
 class SearchItemCard extends StatelessWidget {
-  final Book item;
+  final RakutenBook item;
 
   SearchItemCard(this.item);
 
