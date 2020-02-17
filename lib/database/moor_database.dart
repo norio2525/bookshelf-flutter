@@ -57,4 +57,6 @@ class MyDatabase extends _$MyDatabase {
   Future<int> addBook(BooksCompanion entry) {
     return into(books).insert(entry);
   }
+
+  Future<List<Book>> get allBooksEntries => select(books).get();
 }

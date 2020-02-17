@@ -3,9 +3,10 @@ import 'package:bookshelf/model/rakuten_book_response.dart';
 import 'package:flutter/material.dart';
 import 'package:moor/moor.dart' hide Column;
 
+import '../main.dart';
+
 class BookDetailScreen extends StatelessWidget {
   RakutenBook _book;
-  final database = MyDatabase();
 
   BookDetailScreen(RakutenBook book) {
     _book = book;

@@ -9,12 +9,18 @@
 // ![A scaffold with a bottom navigation bar containing three bottom navigation
 // bar items. The first one is selected.](https://flutter.github.io/assets-for-api-docs/assets/material/bottom_navigation_bar.png)
 
+import 'package:bookshelf/database/moor_database.dart';
 import 'package:bookshelf/widgets//search.dart';
 import 'package:bookshelf/widgets/settings.dart';
 import 'package:bookshelf/widgets/shelf.dart';
 import 'package:flutter/material.dart';
 
-void main() => runApp(MyApp());
+MyDatabase database;
+
+void main() {
+  database = MyDatabase();
+  runApp(MyApp());
+}
 
 /// This Widget is the main application widget.
 class MyApp extends StatelessWidget {
