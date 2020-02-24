@@ -24,13 +24,13 @@ class Books extends Table {
   TextColumn get mediumImageUrl => text()();
   TextColumn get largeImageUrl => text()();
   IntColumn get reviewCount => integer().withDefault(Constant(0))();
-  RealColumn get reviewAverage => real().withDefault(Constant(0.0))();
+  TextColumn get reviewAverage => text().nullable()();
   BoolColumn get hasRead => boolean().withDefault(Constant(false))();
-  TextColumn get note => text()();
+  TextColumn get note => text().nullable()();
   DateTimeColumn get registerTime => dateTime()();
-  DateTimeColumn get completeDate => dateTime()();
+  DateTimeColumn get completeDate => dateTime().nullable()();
   IntColumn get myRate => integer().withDefault(Constant(0))();
-  TextColumn get tags => text()();
+  TextColumn get tags => text().nullable()();
   IntColumn get status => integer().withDefault(Constant(0))();
   IntColumn get readNum => integer().withDefault(Constant(0))();
 }

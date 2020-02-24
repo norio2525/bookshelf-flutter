@@ -21,28 +21,34 @@ class BookDetailScreen extends StatelessWidget {
       ),
       body: Center(
           child: Column(
-            mainAxisSize: MainAxisSize.min,
-            crossAxisAlignment: CrossAxisAlignment.center,
-            children: [
-              Text(_book.title, style: Theme
-                  .of(context)
-                  .textTheme
-                  .headline1),
-              FlatButton(
-                onPressed: () {
-                  database.addBook(
-                    BooksCompanion(
-                      title: Value(_book.title),
-                      author: Value(_book.author),
-                    ),
-                  );
-                },
-                child: Text(
-                    '登録する'
-                ),
-              )
-            ],
-          )),
+        mainAxisSize: MainAxisSize.min,
+        crossAxisAlignment: CrossAxisAlignment.center,
+        children: [
+          Text(_book.title, style: Theme.of(context).textTheme.headline1),
+          FlatButton(
+            onPressed: () {
+              database.addBook(
+                BooksCompanion(
+                    title: Value(_book.title),
+                    titleKana: Value(_book.titleKana),
+                    author: Value(_book.author),
+                    authorKana: Value(_book.authorKana),
+                    publisherName: Value(_book.publisherName),
+                    size: Value(_book.size),
+                    isbn: Value(_book.isbn),
+                    itemCaption: Value(_book.itemCaption),
+                    salesDate: Value(_book.salesDate),
+                    itemUrl: Value(_book.itemUrl),
+                    smallImageUrl: Value(_book.smallImageUrl),
+                    mediumImageUrl: Value(_book.mediumImageUrl),
+                    largeImageUrl: Value(_book.largeImageUrl),
+                    registerTime: Value(new DateTime.now())),
+              );
+            },
+            child: Text('登録する'),
+          )
+        ],
+      )),
     );
   }
 }
