@@ -1,8 +1,10 @@
 class RakutenBookResponse {
   final int count;
+  final int last;
+  final int pageCount;
   final List<RakutenBook> items;
 
-  RakutenBookResponse({this.count, this.items});
+  RakutenBookResponse({this.count, this.items, this.last, this.pageCount});
 
   factory RakutenBookResponse.fromJson(Map<String, dynamic> json) {
     var list = json['Items'] as List;
@@ -12,6 +14,8 @@ class RakutenBookResponse {
 
     return RakutenBookResponse(
       count: json['count'],
+      last: json['last'],
+      pageCount: json['pageCount'],
       items: bookList,
     );
   }

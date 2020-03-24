@@ -17,7 +17,7 @@ class ApiClient {
 
   factory ApiClient() => _client;
 
-  Future<RakutenBookResponse> fetchBooks(String title, String author) async {
+  Future<RakutenBookResponse> fetchBooks(String title, String author, int page) async {
     Map<String, String> params = {
       'applicationId': rakuten_app_id,
       'outOfStockFlag': '1',
@@ -30,6 +30,7 @@ class ApiClient {
     if (author.isNotEmpty) {
       params['author'] = author;
     }
+    params['page'] = page.toString();
 
     var url =
         Uri.https(baseUrl, 'services/api/BooksBook/Search/20170404', params);
