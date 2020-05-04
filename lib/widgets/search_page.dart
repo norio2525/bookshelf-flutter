@@ -27,7 +27,8 @@ class _SearchScreenState extends State<SearchScreen> {
   void initState() {
     super.initState();
     setState(() {
-      _result = _apiClient.fetchBooks(widget.title, widget.author, nextRequestPage);
+      _result =
+          _apiClient.fetchBooks(widget.title, widget.author, nextRequestPage);
       _currentState = LoadingState.DONE;
     });
     _scrollController.addListener(() {
@@ -45,7 +46,8 @@ class _SearchScreenState extends State<SearchScreen> {
       setState(() {
         isPerformingRequest = true;
       });
-      _result = _apiClient.fetchBooks(widget.title, widget.author, nextRequestPage);
+      _result =
+          _apiClient.fetchBooks(widget.title, widget.author, nextRequestPage);
     }
   }
 
@@ -60,6 +62,22 @@ class _SearchScreenState extends State<SearchScreen> {
   }
 
   Widget _buildContentSection() {
+    GestureDetector makeItem(RakutenBook book) => GestureDetector(
+          onTap: () {
+            Navigator.push(
+                context,
+                MaterialPageRoute(
+                    builder: (context) => BookDetailScreen(book)));
+          },
+          child: Row(
+            children: [
+              Column(
+                children: <Widget>[Text(book.title), Text(book.author)],
+              )
+            ],
+          ),
+        );
+
     switch (_currentState) {
       case LoadingState.WAITING:
         return Center(child: Text("Waiting"));
@@ -91,22 +109,13 @@ class _SearchScreenState extends State<SearchScreen> {
                   lastCount = -1;
                 }
               }
-              return ListView(
+              return ListView.builder(
                 controller: _scrollController,
-                children: _list
-                    .map(
-                      (RakutenBook book) => ListTile(
-                          title: Text(book.title),
-                          subtitle: Text(book.author),
-                          onTap: () {
-                            Navigator.push(
-                                context,
-                                MaterialPageRoute(
-                                    builder: (context) =>
-                                        BookDetailScreen(book)));
-                          }),
-                    )
-                    .toList(),
+                itemBuilder: (BuildContext context, int index) {
+                  RakutenBook book = _list[index];
+                  return makeItem(book);
+                },
+                itemCount: _list.length,
               );
             } else {
               return Text("${snapshot.error}");
