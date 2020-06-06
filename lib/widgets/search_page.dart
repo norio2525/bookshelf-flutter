@@ -62,14 +62,13 @@ class _SearchScreenState extends State<SearchScreen> {
   }
 
   Widget _buildContentSection() {
-    GestureDetector makeItem(RakutenBook book) =>
-        GestureDetector(
-          onTap: () {
-            Navigator.push(
-                context,
-                MaterialPageRoute(
-                    builder: (context) => BookDetailScreen(book)));
-          },
+    GestureDetector makeItem(RakutenBook book) => GestureDetector(
+        onTap: () {
+          Navigator.push(context,
+              MaterialPageRoute(builder: (context) => BookDetailScreen(book)));
+        },
+        child: Padding(
+          padding: EdgeInsets.all(10.0),
           child: Row(
             children: [
               FadeInImage.assetNetwork(
@@ -78,12 +77,47 @@ class _SearchScreenState extends State<SearchScreen> {
                 placeholder: 'assets/no_image.png',
                 image: book.mediumImageUrl,
               ),
-              Column(
-                children: <Widget>[Text(book.title), Text(book.author)],
-              )
+              Flexible(
+                  child: Padding(
+                padding: EdgeInsets.only(left: 10.0),
+                child: Column(
+                  children: <Widget>[
+                    Align(
+                      alignment: Alignment.centerLeft,
+                      child: Text(book.title,
+                          style: TextStyle(
+                              color: Color(0xFF448AFF), fontSize: 16.0)),
+                    ),
+                    Align(
+                      alignment: Alignment.centerLeft,
+                      child: Text(book.author,
+                          style: TextStyle(
+                              color: Color(0xFF444444), fontSize: 14.0)),
+                    ),
+                    Align(
+                        alignment: Alignment.centerLeft,
+                        child: Row(
+                          children: <Widget>[
+                            Text(book.publisherName,
+                                style: TextStyle(
+                                    color: Color(0xFF929292), fontSize: 12.0)),
+                            Text(' / ¥' + book.itemPrice.toString(),
+                                style: TextStyle(
+                                    color: Color(0xFF929292), fontSize: 12.0)),
+                          ],
+                        )),
+                    Align(
+                      alignment: Alignment.centerLeft,
+                      child: Text('平均評価 ★' + book.reviewAverage,
+                          style: TextStyle(
+                              color: Color(0xFF448AFF), fontSize: 12.0)),
+                    )
+                  ],
+                ),
+              ))
             ],
           ),
-        );
+        ));
 
     switch (_currentState) {
       case LoadingState.WAITING:
@@ -116,13 +150,16 @@ class _SearchScreenState extends State<SearchScreen> {
                   lastCount = -1;
                 }
               }
-              return ListView.builder(
+              return ListView.separated(
                 controller: _scrollController,
                 itemBuilder: (BuildContext context, int index) {
                   RakutenBook book = _list[index];
                   return makeItem(book);
                 },
                 itemCount: _list.length,
+                separatorBuilder: (context, index) {
+                  return Divider();
+                },
               );
             } else {
               return Text("${snapshot.error}");
