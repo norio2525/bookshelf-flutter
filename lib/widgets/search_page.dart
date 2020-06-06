@@ -62,7 +62,8 @@ class _SearchScreenState extends State<SearchScreen> {
   }
 
   Widget _buildContentSection() {
-    GestureDetector makeItem(RakutenBook book) => GestureDetector(
+    GestureDetector makeItem(RakutenBook book) =>
+        GestureDetector(
           onTap: () {
             Navigator.push(
                 context,
@@ -71,6 +72,12 @@ class _SearchScreenState extends State<SearchScreen> {
           },
           child: Row(
             children: [
+              FadeInImage.assetNetwork(
+                height: 96.0,
+                width: 96.0,
+                placeholder: 'assets/no_image.png',
+                image: book.mediumImageUrl,
+              ),
               Column(
                 children: <Widget>[Text(book.title), Text(book.author)],
               )
